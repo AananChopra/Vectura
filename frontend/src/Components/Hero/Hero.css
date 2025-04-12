@@ -277,11 +277,11 @@
   .hero-title {
     font-size: 3rem;
   }
-  
+
   .text-container {
     padding-right: 2rem;
   }
-  
+
   .debt-summary-card {
     max-width: 380px;
   }
@@ -293,12 +293,12 @@
     align-items: center;
     gap: 3rem;
   }
-  
+
   .hero-section {
     margin: 2rem 1.5rem 1.5rem;
     padding: 4rem 0;
   }
-  
+
   .text-container {
     padding-right: 0;
     text-align: center;
@@ -306,22 +306,22 @@
     flex-direction: column;
     align-items: center;
   }
-  
+
   .hero-title {
     font-size: 2.75rem;
   }
-  
+
   .hero-description {
     font-size: 1.25rem;
     margin-left: auto;
     margin-right: auto;
   }
-  
+
   .summary-container {
     justify-content: center;
     width: 100%;
   }
-  
+
   .debt-summary-card {
     max-width: 450px;
     transform: none;
@@ -334,50 +334,51 @@
     padding: 3rem 0;
     border-radius: 1.5rem;
   }
-  
+
   .container {
     padding: 0 1.5rem;
   }
-  
+
   .hero-title {
     font-size: 2.25rem;
   }
-  
+
   .hero-description {
     font-size: 1.125rem;
     margin-bottom: 2rem;
   }
-  
+
   .cta-buttons {
     flex-direction: column;
     width: 100%;
     gap: 1rem;
   }
-  
-  .cta-btn-1, .cta-btn-2 {
+
+  .cta-btn-1,
+  .cta-btn-2 {
     width: 100%;
   }
-  
+
   .debt-summary-card {
     max-width: 100%;
   }
-  
+
   .debt-summary-header {
     padding: 1.25rem;
   }
-  
+
   .debt-summary-title {
     font-size: 1.25rem;
   }
-  
+
   .debt-summary-body {
     padding: 1.25rem;
   }
-  
+
   .debt-item {
     padding: 1rem;
   }
-  
+
   .debt-value {
     font-size: 1.25rem;
   }
@@ -389,24 +390,24 @@
     padding: 2.5rem 0;
     border-radius: 1.25rem;
   }
-  
+
   .hero-title {
     font-size: 1.875rem;
   }
-  
+
   .hero-description {
     font-size: 1rem;
   }
-  
+
   .debt-icon {
     padding: 0.5rem;
     font-size: 1.25rem;
   }
-  
+
   .debt-label {
     font-size: 0.8rem;
   }
-  
+
   .debt-value {
     font-size: 1.125rem;
   }
