@@ -79,19 +79,18 @@ cd vectura
 
 ## 📸 Screenshots
 
-   ![Home page](./screenshots/HOME1.png)
+   ![Home page](./SCREENSHOTS/HOME1.png)
 
 
-
-   ![Home page](./screenshots/HOME2.png)
-
-
-   ![AI BOT](./screenshots/AIBOT.png)
+   ![Home page](./SCREENSHOTS/HOME2.png)
 
 
-   ![DOWNLOADABLE PDF REPORT](./screenshots/REPORT1.png)
+   ![AI BOT](./SCREENSHOTS/AIBOT.png)
 
 
-   ![DOWNLOADABLE PDF REPORT](./screenshots/REPORT2.png)
+   ![DOWNLOADABLE PDF REPORT](./SCREENSHOTS/REPORT1.png)
+
+
+   ![DOWNLOADABLE PDF REPORT](./SCREENSHOTS/REPORT2.png)
 
 
