@@ -8,14 +8,14 @@
 body {
   font-family: 'Segoe UI', 'Arial', sans-serif;
   background-color: #f0f4f8;
-  color: white;
+  color: #333;
 }
 
 /* Container and Header */
 .ai-chat-container {
   max-width: 80%;
   margin: 2rem auto;
-  background-color: white;
+  background-color: white !important; /* Forced white background with !important */
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 6px 12px rgba(0, 0, 0, 0.05);
   overflow: hidden;
@@ -50,7 +50,7 @@ body {
   flex: 1;
   padding: 24px;
   overflow-y: auto;
-  background-color: #f9fafc;
+  background-color: #f9fafc !important; /* Forced light background with !important */
   display: flex;
   flex-direction: column;
   gap: 18px;
@@ -60,6 +60,7 @@ body {
                     linear-gradient(90deg, rgba(255, 255, 255, 0.7) 1px, transparent 1px);
   background-size: 20px 20px;
   background-position: center center;
+  color: #2c3e50 !important; /* Ensuring dark text on light background */
 }
 
 .chat-messages::-webkit-scrollbar {
@@ -99,15 +100,15 @@ body {
 .message.bot {
   display: flex;
   align-self: flex-start;
-  background-color: #e9f5ff;
-  color: #2c3e50;
+  background-color: #e9f5ff !important; /* Light blue background for bot messages */
+  color: #2c3e50 !important; /* Dark text for visibility */
   border-bottom-left-radius: 4px;
   box-shadow: 0 2px 8px rgba(33, 141, 223, 0.08);
   border-left: 3px solid #218ddf;
 }
 
 .message-bot-logo {
-  color: #218ddf;
+  color: #218ddf !important; /* Blue color for bot logo */
   margin-right: 1rem;
   filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
   animation: pulseIcon 1.5s infinite alternate ease-in-out;
@@ -122,8 +123,8 @@ body {
   display: flex;
   align-self: flex-end;
   justify-content: flex-end;
-  background-color: #f0f7ff;
-  color: #2c3e50;
+  background-color: #f0f7ff !important; /* Light blue for user messages */
+  color: #2c3e50 !important; /* Dark text for visibility */
   border-bottom-right-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   border-right: 3px solid #218ddf;
@@ -166,7 +167,7 @@ body {
 /* Footer */
 .chat-footer {
   padding: 16px 20px;
-  background-color: #ffffff;
+  background-color: #ffffff !important; /* White background for footer */
   border-top: 1px solid #eaeaea;
   display: flex;
   gap: 14px;
@@ -182,6 +183,8 @@ body {
   outline: none;
   transition: all 0.25s ease;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02) inset;
+  background-color: white !important; /* White background for input */
+  color: #333 !important; /* Dark text for input */
 }
 
 .chat-input:focus {
@@ -324,51 +327,21 @@ body {
   }
 }
 
-/* Dark mode support */
+/* Completely disable dark mode styling */
 @media (prefers-color-scheme: dark) {
+  /* Force light theme elements */
   body {
-    background-color: #121212;
-    color: #f0f0f0;
+    background-color: #f0f4f8 !important;
+    color: #333 !important;
   }
   
   .ai-chat-container {
-    background-color: #1e1e1e;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background-color: white !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 6px 12px rgba(0, 0, 0, 0.05) !important;
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
   }
   
-  .chat-messages {
-    background-color: #1a1a1a;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  }
-  
-  .message.bot {
-    background-color: #192734;
-    color: #e1e8ed;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .message.user {
-    background-color: #162d40;
-    color: #e1e8ed;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .chat-footer {
-    background-color: #1e1e1e;
-    border-top: 1px solid #333;
-  }
-  
-  .chat-input {
-    background-color: #2a2a2a;
-    border-color: #444;
-    color: #f0f0f0;
-  }
-  
-  .chat-input::placeholder {
-    color: #888;
-  }
+  /* All other dark mode styles are effectively disabled by the !important rules above */
 }
 
 /* Accessibility improvements */

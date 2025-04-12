@@ -1,9 +1,18 @@
-import React from "react";
-import { LockIcon } from "lucide-react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./AibotHero.css"
+import { Sparkles, TrendingUp, ArrowUpCircle } from "lucide-react";
+import "./AiBotHero.css"
 
 const HeroSection = () => {
+  const [animateFinancial, setAnimateFinancial] = useState(false);
+  
+  useEffect(() => {
+    // Trigger the animation after component mounts
+    setTimeout(() => {
+      setAnimateFinancial(true);
+    }, 500);
+  }, []);
+
   return (
     <div className="hero-container">
       <div className="hero-content">
@@ -19,43 +28,38 @@ const HeroSection = () => {
           <div className="hero-buttons justify-content-center">
             <Link to="/chat" className="btn Aibtn-primary">Chat with Vectura</Link>
             <Link to="/home" className="btn Aibtn-outline">Home</Link>
-         </div>
-
+          </div>
         </div>
       </div>
-      
-      <div className="debt-summary-card">
-        <div className="card-header">
-          <LockIcon size={20} />
-          <h2>Debt Summary</h2>
-        </div>
-        
-        <div className="card-body">
-          <div className="summary-item">
-            <div className="summary-label">TOTAL DEBT</div>
-            <div className="summary-value-container">
-              <div className="summary-dot"></div>
-              <div className="summary-value">$24,500</div>
-            </div>
+
+      {/* 3D Financial Model with Animation */}
+      <div className="hero-visual">
+        <div className={`financial-model ${animateFinancial ? 'animate' : ''}`}>
+          
+          <div className="floating-circles">
+            {[...Array(8)].map((_, index) => (
+              <div 
+                key={`circle-${index}`}
+                className="floating-circle"
+                style={{
+                  top: `${Math.random() * 100}%`,
+                  left: `${Math.random() * 100}%`,
+                  animationDelay: `${index * 0.3}s`,
+                  animationDuration: `${3 + Math.random() * 4}s`
+                }}
+              >
+                {index % 3 === 0 ? (
+                  <ArrowUpCircle size={24} />
+                ) : index % 3 === 1 ? (
+                  <Sparkles size={20} />
+                ) : (
+                  '$'
+                )}
+              </div>
+            ))}
           </div>
           
-          <div className="summary-item">
-            <div className="summary-label">AVG. INTEREST RATE</div>
-            <div className="summary-value-container">
-              <div className="summary-dot"></div>
-              <div className="summary-value">16.2%</div>
-            </div>
-          </div>
-          
-          <div className="summary-item">
-            <div className="summary-label">PAYOFF TIMELINE</div>
-            <div className="summary-value-container">
-              <div className="summary-dot"></div>
-              <div className="summary-value">3.5 years</div>
-            </div>
-          </div>
-          
-          <button className="optimization-btn">Get AI Analysis Now</button>
+          <div className="glowing-sphere"></div>
         </div>
       </div>
     </div>

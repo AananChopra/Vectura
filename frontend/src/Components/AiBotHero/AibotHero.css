@@ -1,250 +1,379 @@
 /* Hero Section Styles */
 .hero-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 2rem;
-    border-radius: 2rem;
-    padding: 4rem 6rem;
-    background: linear-gradient(120deg, #0099ff, #667eea, #c471ed, #f64f59);
-    background-size: 300% 300%;
-    animation: gradientBackground 10s ease infinite;
-    min-height: 600px;
-    position: relative;
-    overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem;
+  border-radius: 2rem;
+  padding: 4rem 6rem;
+  background: linear-gradient(120deg, #0099ff, #667eea, #c471ed, #f64f59);
+  background-size: 300% 300%;
+  animation: gradientBackground 10s ease infinite;
+  min-height: 600px;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes gradientBackground {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Content Side */
+.hero-content {
+  flex: 1;
+  z-index: 1;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.hero-description {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.95;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.hero-buttons a {
+  text-decoration: none;
+}
+
+.btn {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.Aibtn-primary {
+  background-color: white;
+  color: #0099ff;
+  border: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+.Aibtn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.Aibtn-outline {
+  background-color: transparent;
+  color: white;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.Aibtn-outline:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Visual Section */
+.hero-visual {
+  flex: 1;
+  position: relative;
+  min-width: 300px;
+  max-width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  z-index: 0;
+}
+
+.financial-model {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  height: 300px;
+  animation: popIn 1s ease forwards;
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.financial-model.animate {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.8s ease;
+}
+
+@keyframes popIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  @keyframes gradientBackground {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+}
+
+/* Coin Stack */
+.coin-stack {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.coin {
+  width: 50px;
+  height: 20px;
+  background-color: gold;
+  border-radius: 50%;
+  margin-bottom: 5px;
+  position: relative;
+  animation: dropCoin 0.6s ease forwards;
+  opacity: 0;
+}
+
+.coin-face {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  color: #333;
+}
+
+@keyframes dropCoin {
+  0% {
+    transform: translateY(-30px);
+    opacity: 0;
   }
-  
-  /* Content Side */
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Arrow Icon */
+.growth-arrow {
+  position: absolute;
+  right: 0;
+  top: 10%;
+  transform: rotate(10deg);
+  color: white;
+  opacity: 0.8;
+}
+
+/* Floating Circles */
+.floating-circles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.floating-circle {
+  position: absolute;
+  color: white;
+  opacity: 0.3;
+  animation: floatUp ease-in infinite;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-100px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Glowing Effect */
+.glowing-sphere {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  bottom: -50px;
+  right: -50px;
+  filter: blur(50px);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .hero-container {
+    flex-direction: column;
+    padding: 3rem 2rem;
+  }
+
   .hero-content {
-    max-width: 600px;
-    color: white;
-    z-index: 1;
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-bottom: 2rem;
   }
-  
-  .text-center {
-    text-align: center;
-  }
-  
+
   .hero-title {
-    font-size: 3.5rem;
-    font-weight: 800;
-    margin-bottom: 1.5rem;
-    line-height: 1.1;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    font-size: 2.5rem;
   }
-  
+
   .hero-description {
-    font-size: 1.25rem;
-    line-height: 1.6;
-    margin-bottom: 2.5rem;
-    max-width: 85%;
-    opacity: 0.95;
+    font-size: 1.1rem;
   }
-  
-  .mx-auto {
-    margin-left: auto;
-    margin-right: auto;
+
+  .hero-visual {
+    margin-top: 2rem;
   }
-  
+}
+
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
   .hero-buttons {
-    a{
-        text-decoration: none;
-    }
-    display: flex;
-    gap: 1rem;
-  }
-  
-  .justify-content-center {
-    justify-content: center;
-  }
-  
-  .btn {
-    padding: 1rem 2rem;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 9999px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .Aibtn-primary {
-    background-color: white;
-    color: #0099ff;
-    border: none;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-  }
-  
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  }
-  
-  .Aibtn-outline {
-    background-color: transparent;
-    color: white;
-    border: 2px solid rgba(255, 255, 255, 0.8);
-  }
-  
-  .btn-outline:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-  
-  /* Card Side */
-  .debt-summary-card {
-    background-color: white;
-    border-radius: 16px;
-    overflow: hidden;
-    width: 350px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    margin-left: 2rem;
-    z-index: 1;
-  }
-  
-  .card-header {
-    background-color: #0099ff;
-    color: white;
-    padding: 1rem 1.5rem;
-    display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 0.75rem;
-  }
-  
-  .card-header h2 {
-    font-size: 1.25rem;
-    font-weight: 600;
-  }
-  
-  .card-body {
-    padding: 1.5rem;
-    background-color: #f8f9fc;
-  }
-  
-  .summary-item {
-    margin-bottom: 1.5rem;
-    padding: 0.75rem;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  }
-  
-  .summary-label {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: #6b7280;
-    margin-bottom: 0.5rem;
-  }
-  
-  .summary-value-container {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  
-  .summary-dot {
-    width: 12px;
-    height: 12px;
-    background-color: #0099ff;
-    border-radius: 50%;
-  }
-  
-  .summary-value {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #1f2937;
-  }
-  
-  .optimization-btn {
-    background-color: #0099ff;
-    color: white;
-    border: none;
     width: 100%;
-    padding: 1rem;
-    border-radius: 8px;
-    font-weight: 600;
+    max-width: 250px;
+    margin: 0 auto;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .coin {
+    width: 40px;
+    height: 16px;
+  }
+
+  .financial-model {
+    max-width: 250px;
+    height: 250px;
+  }
+}
+
+
+@media (max-width: 400px) {
+  .hero-container {
+    padding: 2rem 1rem;
+    min-height: auto;
+  }
+
+  .hero-content{
+    padding-left: 0rem;
+  }
+
+  .hero-title {
+    font-size: 1.75rem;
+    line-height: 1.1;
+  }
+
+  .hero-description {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  .hero-buttons {
+    gap: 0.5rem;
+    max-width: 220px;
+  }
+
+  .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .financial-model {
+    max-width: 200px;
+    height: 200px;
+  }
+
+  .coin {
+    width: 35px;
+    height: 14px;
+  }
+
+  .glowing-sphere {
+    width: 100px;
+    height: 100px;
+    bottom: -30px;
+    right: -30px;
+  }
+
+  .growth-arrow {
+    top: 5%;
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .hero-container {
+    padding-left: 0rem;
+  }
+
+  .hero-content{
+    margin-right: 2rem;
+  }
+
+  .hero-title {
+    font-size: 1.5rem;
+  }
+
+  .hero-description {
+    font-size: 0.85rem;
+  }
+
+  .hero-buttons {
+    gap: 0.5rem;
+    max-width: 200px;
+  }
+
+  .btn {
+    font-size: 0.85rem;
+    padding: 0.6rem 1.2rem;
+  }
+
+  .financial-model {
+    max-width: 180px;
+    height: 180px;
+  }
+
+  .coin {
+    width: 30px;
+    height: 12px;
+  }
+
+  .glowing-sphere {
+    width: 80px;
+    height: 80px;
+    bottom: -20px;
+    right: -20px;
+  }
+
+  .growth-arrow {
     font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    margin-top: 0.5rem;
-    box-shadow: 0 4px 10px rgba(0, 153, 255, 0.3);
   }
-  
-  .optimization-btn:hover {
-    background-color: #0080d9;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 1200px) {
-    .hero-container {
-      padding: 3rem 4rem;
-    }
-    
-    .hero-title {
-      font-size: 3rem;
-    }
-  }
-  
-  @media (max-width: 992px) {
-    .hero-container {
-      padding: 3rem;
-    }
-    
-    .hero-title {
-      font-size: 2.5rem;
-    }
-    
-    .debt-summary-card {
-      width: 320px;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .hero-container {
-      flex-direction: column;
-      padding: 2rem;
-    }
-    
-    .hero-content {
-      margin-bottom: 3rem;
-    }
-    
-    .hero-description {
-      max-width: 100%;
-    }
-    
-    .debt-summary-card {
-      margin-left: 0;
-      width: 100%;
-      max-width: 400px;
-    }
-  }
-  
-  @media (max-width: 576px) {
-    .hero-title {
-      font-size: 2rem;
-    }
-    
-    .hero-description {
-      font-size: 1.1rem;
-    }
-    
-    .hero-buttons {
-      flex-direction: column;
-      width: 100%;
-      max-width: 250px;
-      margin: 0 auto;
-    }
-    
-    .btn {
-      width: 100%;
-    }
-  }
+}
+
