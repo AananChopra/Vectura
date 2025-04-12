@@ -151,9 +151,15 @@ const AiBot = () => {
             type="text"
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleUserInput();
+              }
+            }}
             placeholder={questions[currentQuestionIndex]}
             className="chat-input"
           />
+
           <button className="send-btn" onClick={handleUserInput}>
             <Send size={18} />
           </button>
