@@ -77,7 +77,8 @@ cd vectura
         npm run dev
 ```
 
-📸 Screenshots
+## 📸 Screenshots
+
    ![Home page](./screenshots/HOME1.png)
 
 
