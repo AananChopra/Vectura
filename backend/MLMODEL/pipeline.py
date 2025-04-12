@@ -1,9 +1,11 @@
+import prompts
 import torch
-import pandas as pd
-import numpy as np
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 import torch.nn as nn
 import os
+import pandas as pd
+import numpy as np
+
 class LSTMCountryModel(nn.Module):
     def __init__(self, num_countries, embedding_dim=8, hidden_dim=64):
         super(LSTMCountryModel, self).__init__()
@@ -17,10 +19,8 @@ class LSTMCountryModel(nn.Module):
         last_output = lstm_out[:, -1, :]
         combined = torch.cat((last_output, country_embed), dim=1)
         return self.fc(combined)
-
 def get_country_forecast(country: str, years_to_predict: int, model_path='model5.pt', data_path='privclean.csv', seq_len=10):
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
+    
     if not os.path.exists(data_path):
         raise FileNotFoundError(f"Data file '{data_path}' not found.")
 
@@ -51,16 +51,15 @@ def get_country_forecast(country: str, years_to_predict: int, model_path='model5
     if not os.path.exists(model_path):
         raise FileNotFoundError(f"Model file '{model_path}' not found.")
 
-    model = torch.load(model_path, map_location=device)
-    model.to(device)
+    model = torch.load(model_path)
     model.eval()
 
     future_preds = {}
     current_year = int(country_df['year'].max())
 
     for _ in range(years_to_predict):
-        seq_tensor = torch.tensor(input_seq, dtype=torch.float).unsqueeze(0).unsqueeze(-1).to(device)
-        country_tensor = torch.tensor([country_id], dtype=torch.long).to(device)
+        seq_tensor = torch.tensor(input_seq, dtype=torch.float).unsqueeze(0).unsqueeze(-1)
+        country_tensor = torch.tensor([country_id], dtype=torch.long)
 
         with torch.no_grad():
             pred_scaled = model(country_tensor, seq_tensor).item()
@@ -72,43 +71,21 @@ def get_country_forecast(country: str, years_to_predict: int, model_path='model5
 
     return future_preds
 
-import matplotlib.pyplot as plt
-import pandas as pd
+#decide_risk(country,UBal,UOut,UInc,year,ml_result)
+def get_value_by_year(data: dict, year = 2025) -> float:
+    return data.get(year, None)    
 
-def plot_predictions(full_country_df, predictions, history_years=20):
-    country_name = full_country_df['country_name'].iloc[0]
+usercountry = "India"
+listcountry = prompts.decide_country(usercountry)
+print(type(listcountry))
+emi_info = "50 lakhs, 4.2percent interest over the course of 35 months"
+monthly_expenses = "30000 rent, 12000 on grocereries, 8.5k utility bills, 40k tuition fees"
+monthly_income = "2,00,000"
 
-    # Get last `history_years` of historical data
-    historical = full_country_df[['year', 'value']].copy()
-    historical = historical.sort_values('year')
-    historical_tail = historical.tail(history_years)
 
-    # Prepare forecast data
-    future = pd.DataFrame({
-        'year': list(predictions.keys()),
-        'value': list(predictions.values())
-    })
+model_output = get_country_forecast(listcountry,10)
+yearvalue = get_value_by_year(model_output)
 
-    # Combine both for consistent plotting
-    combined = pd.concat([historical_tail, future], ignore_index=True)
-
-    # Plotting
-    plt.figure(figsize=(10, 5))
-    plt.plot(historical_tail['year'], historical_tail['value'], label='Historical', marker='o', color='blue')
-    plt.plot(future['year'], future['value'], label='Forecast', marker='x', color='orange', linestyle='--')
-
-    # Optional: vertical line at transition
-    plt.axvline(x=historical_tail['year'].max(), color='gray', linestyle=':', linewidth=1)
-
-    plt.title(f"{country_name} - Last {history_years} Years and Forecast")
-    plt.xlabel("Year")
-    plt.ylabel("Value")
-    plt.legend()
-    plt.grid(True)
-    plt.tight_layout()
-    plt.show()
-
-#example
-predictions = get_country_forecast("Ghana", 10)
-print(predictions)
+risk_decision = prompts.decide_risk(listcountry,emi_info,monthly_expenses,monthly_income,2025,yearvalue,model_output)
+print(risk_decision)
 

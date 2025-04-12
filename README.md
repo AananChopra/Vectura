@@ -58,25 +58,28 @@ Designed to empower individuals in understanding and managing their debt more ef
 ```bash
 git clone https://github.com/your-username/vectura.git
 cd vectura
+```
 
-2. Backend Setup
+### 2. Backend Setup
+```bash
         cd backend
         python -m venv env
         source env/bin/activate  # On Windows: env\Scripts\activate
         pip install -r requirements.txt
         python manage.py migrate
         python manage.py runserver
+```
 
-
-3. Frontend Setup
+### 3. Frontend Setup
+```bash
         cd frontend
         npm install
         npm run dev
+```
 
+## 📸 Screenshots
 
-📸 Screenshots
    ![Home page](./SCREENSHOTS/HOME1.png)
-
 
 
    ![Home page](./SCREENSHOTS/HOME2.png)
