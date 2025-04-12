@@ -180,7 +180,11 @@ def generate_pdf(request, report_id):
             "Employment Status",
             "Industry",
             "Monthly Income",
-            "Monthly Expenses",
+            "Rent/mortagage",
+            "Utilities",
+            "Food/grocery expenses",
+            "Tuition fee",
+            "Misclelaneous expenses(e.g., entertainment, shopping, etc.)",
             "Assets/Savings Value",
             "Current Loans",
             "Missed Payment Frequency",
@@ -396,87 +400,88 @@ def generate_pdf(request, report_id):
         elements.append(Paragraph("Financial Breakdown", section_title))
         elements.append(Spacer(1, 10))
 
-        # Extract expense data from responses
         try:
-            monthly_income = float(report.responses.get("7", 0))  # Index 7 is "Monthly Income"
-            monthly_expenses = float(report.responses.get("8", 0))  # Index 8 is "Monthly Expenses"
-            
-            # Calculate savings or deficit
+            # Monthly income
+            monthly_income = float(report.responses.get("7", 0))  # Index 7: Monthly Income
+
+            # Individual expenses from responses
+            rent = float(report.responses.get("8", 0))
+            utilities = float(report.responses.get("9", 0))
+            food = float(report.responses.get("10", 0))
+            tuition = float(report.responses.get("11", 0))
+            misc = float(report.responses.get("12", 0))
+
+            # List of all individual expense categories
+            data = [
+                ("Rent/Mortgage", rent),
+                ("Utilities", utilities),
+                ("Food/Groceries", food),
+                ("Tuition", tuition),
+                ("Miscellaneous", misc),
+            ]
+
+            # Total expenses
+            monthly_expenses = sum([d[1] for d in data])
             remaining = monthly_income - monthly_expenses
-            
-            # Create the pie chart data
-            if remaining >= 0:
-                # If positive remaining amount (savings)
-                data = [
-                    ('Expenses', monthly_expenses),
-                    ('Savings', remaining)
-                ]
-                chart_title = "Income Allocation"
-            else:
-                # If negative remaining amount (deficit)
-                data = [
-                    ('Expenses', monthly_expenses),
-                    ('Deficit', abs(remaining))
-                ]
-                chart_title = "Expense vs. Income"
-            
-            # Create the drawing and pie chart
+
+            # Drawing the pie chart
             drawing = Drawing(width=400, height=200)
             pie = Pie()
-            pie.x = 150
+            pie.x = 100
             pie.y = 25
-            pie.width = 150
+            pie.width = 200
             pie.height = 150
-            
-            # Set the data and labels
+
             pie.data = [d[1] for d in data]
             pie.labels = [d[0] for d in data]
-            
-            # Set colors based on the data
-            if remaining >= 0:
-                pie.slices.strokeWidth = 0.5
-                pie.slices[0].fillColor = accent_color  # Expenses
-                pie.slices[1].fillColor = secondary_color  # Savings
-            else:
-                pie.slices.strokeWidth = 0.5
-                pie.slices[0].fillColor = high_risk_color  # Expenses
-                pie.slices[1].fillColor = very_high_risk_color  # Deficit
-            
-            drawing.add(pie)
-            
-            # Add a title for the chart
-            elements.append(Paragraph(chart_title, 
-                ParagraphStyle('ChartTitle', 
-                    parent=body_text, 
-                    fontSize=12, 
-                    alignment=1,
-                    spaceBefore=6,
-                    spaceAfter=6
-                )))
-            
-            # Add the pie chart to the PDF
-            elements.append(drawing)
-            
-            # Add a description of the chart
-            if remaining >= 0:
-                chart_desc = f"Monthly Income: ${monthly_income:.2f}<br/>Monthly Expenses: ${monthly_expenses:.2f}<br/>Monthly Savings: ${remaining:.2f} ({(remaining/monthly_income*100):.1f}% of income)"
-            else:
-                chart_desc = f"Monthly Income: ${monthly_income:.2f}<br/>Monthly Expenses: ${monthly_expenses:.2f}<br/>Monthly Deficit: ${abs(remaining):.2f} ({(abs(remaining)/monthly_income*100):.1f}% over income)"
-            
-            elements.append(Paragraph(chart_desc, 
-                ParagraphStyle('ChartDesc', 
-                    parent=body_text, 
-                    fontSize=10, 
-                    alignment=1,
-                    spaceBefore=10
-                )))
-            
-        except (ValueError, TypeError, KeyError):
-            # If there's an error parsing the data, show a placeholder message
-            elements.append(Paragraph("Financial data visualization unavailable due to incomplete information.", 
-                ParagraphStyle('ErrorMsg', parent=body_text, textColor=colors.grey, alignment=1)))
 
-        elements.append(Spacer(1, 25))
+            pie.slices.strokeWidth = 0.5
+
+            # Assign colors (you can customize or cycle through a palette)
+            slice_colors = [accent_color, secondary_color, high_risk_color, very_high_risk_color, colors.purple]
+            for i, color in enumerate(slice_colors):
+                if i < len(pie.data):
+                    pie.slices[i].fillColor = color
+
+            drawing.add(pie)
+
+            # Add chart title
+            elements.append(Paragraph("Monthly Expense Distribution", ParagraphStyle(
+                'ChartTitle',
+                parent=body_text,
+                fontSize=12,
+                alignment=1,
+                spaceBefore=6,
+                spaceAfter=6
+            )))
+
+            elements.append(drawing)
+
+            # Summary description below the chart
+            if remaining >= 0:
+                chart_desc = f"""
+                Monthly Income: ${monthly_income:.2f}<br/>
+                Total Monthly Expenses: ${monthly_expenses:.2f}<br/>
+                Monthly Savings: ${remaining:.2f} ({(remaining/monthly_income*100):.1f}% of income)
+                """
+            else:
+                chart_desc = f"""
+                Monthly Income: ${monthly_income:.2f}<br/>
+                Total Monthly Expenses: ${monthly_expenses:.2f}<br/>
+                Monthly Deficit: ${abs(remaining):.2f} ({(abs(remaining)/monthly_income*100):.1f}% over income)
+                """
+
+            elements.append(Paragraph(chart_desc, ParagraphStyle(
+                'ChartDesc',
+                parent=body_text,
+                fontSize=10,
+                alignment=1,
+                spaceBefore=10
+            )))
+
+        except Exception as e:
+            elements.append(Paragraph("⚠️ Could not generate financial breakdown chart. Error: " + str(e), body_text))
+            elements.append(Spacer(1, 25))
 
         # Summary section with enhanced styling
         elements.append(Paragraph("Financial Summary", section_title))
