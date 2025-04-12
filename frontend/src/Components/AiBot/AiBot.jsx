@@ -67,7 +67,7 @@ const AiBot = () => {
     <div className="ai-chat-container">
       <div className="chat-header">
         <Bot size={24} />
-        <span>Ventura Debt Assistant</span>
+        <span>Vectura Debt Assistant</span>
       </div>
       <div className="chat-messages">
         {messages.map((message, index) => (
