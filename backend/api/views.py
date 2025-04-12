@@ -1,3 +1,4 @@
+import datetime
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -121,7 +122,42 @@ from .models import ConsultationReport
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 import json
+from MLMODEL.prompts import decide_risk, decide_country
+from MLMODEL.pipeline import get_country_forecast
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+from MLMODEL.pipeline import get_country_forecast, get_value_by_year
+from MLMODEL.prompts import decide_risk, decide_country
+from .models import ConsultationReport
 
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+from MLMODEL.pipeline import get_country_forecast, get_value_by_year
+from MLMODEL.prompts import decide_risk, decide_country
+from .models import ConsultationReport
+
+QUESTIONS = [
+            "👋 Welcome Message",  # This won't be displayed in the Q&A table
+            "Full Name",
+            "Age",
+            "Country of Residence",
+            "Currency Used (e.g., USD, INR, EUR)",
+            "Employment Status",
+            "Industry",
+            "Monthly Income",
+            "Rent/mortagage",
+            "Utilities",
+            "Food/grocery expenses",
+            "Tuition fee",
+            "Misclelaneous expenses(e.g., entertainment, shopping, etc.)",
+            "Assets/Savings Value",
+            "Current Loans",
+            "Missed Payment Frequency",
+            "Debt Comfort Level (1-5)",
+            "Analysis Completion"  # This won't be displayed in the Q&A table
+        ]
 
 @csrf_exempt  # CSRF exemption if you're dealing with cross-origin requests
 def save_consultation(request):
@@ -165,7 +201,6 @@ def save_consultation(request):
             return JsonResponse({"error": str(e)}, status=500)
     
     return JsonResponse({"error": "Invalid request method, expected POST"}, status=400)
-
 
 
 def generate_pdf(request, report_id):

@@ -1,91 +1,148 @@
-import prompts
+from MLMODEL.prompts import decide_country, decide_risk
 import torch
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 import torch.nn as nn
 import os
 import pandas as pd
 import numpy as np
+import json
+from typing import Dict
 
-class LSTMCountryModel(nn.Module):
-    def __init__(self, num_countries, embedding_dim=8, hidden_dim=64):
-        super(LSTMCountryModel, self).__init__()
-        self.embedding = nn.Embedding(num_countries, embedding_dim)
-        self.lstm = nn.LSTM(input_size=1, hidden_size=hidden_dim, batch_first=True)
-        self.fc = nn.Linear(hidden_dim + embedding_dim, 1)
-
-    def forward(self, country_ids, sequences):
-        country_embed = self.embedding(country_ids)
-        lstm_out, _ = self.lstm(sequences)
-        last_output = lstm_out[:, -1, :]
-        combined = torch.cat((last_output, country_embed), dim=1)
-        return self.fc(combined)
-def get_country_forecast(country: str, years_to_predict: int, model_path='model5.pt', data_path='privclean.csv', seq_len=10):
+def get_country_forecast(
+    country: str, 
+    years_to_predict: int = 5,
+    model_path: str = os.path.join(os.path.dirname(__file__), 'model5.pt'),
+    data_path: str = os.path.join(os.path.dirname(__file__), 'privclean.csv'),
+    seq_len: int = 10
+) -> Dict[int, float]:
+    """
+    Generates economic forecasts for a given country using an LSTM model.
     
+    Args:
+        country: Name of the country to forecast
+        years_to_predict: Number of future years to predict (default: 5)
+        model_path: Path to the trained PyTorch model
+        data_path: Path to the CSV data file
+        seq_len: Length of input sequence for the model
+    
+    Returns:
+        Dictionary with years as keys and predicted values as floats
+    
+    Raises:
+        FileNotFoundError: If data or model files are missing
+        ValueError: For invalid inputs or data issues
+        RuntimeError: For model loading or prediction failures
+    """
+    # Validate inputs
+    if not isinstance(country, str) or not country.strip():
+        raise ValueError("Country name must be a non-empty string")
+    if years_to_predict <= 0:
+        raise ValueError("Years to predict must be positive")
+    if seq_len <= 0:
+        raise ValueError("Sequence length must be positive")
+
+    # Data loading and validation
     if not os.path.exists(data_path):
-        raise FileNotFoundError(f"Data file '{data_path}' not found.")
-
-    df = pd.read_csv(data_path)
-    df.drop(columns=['Unnamed: 0'], inplace=True, errors='ignore')
-    df.columns = df.columns.str.strip()
-    df_long = df.melt(id_vars='country_name', var_name='year', value_name='value').dropna()
-    df_long['year'] = df_long['year'].astype(int)
-    df_long = df_long.sort_values(by=['country_name', 'year']).reset_index(drop=True)
-
-    country_encoder = LabelEncoder()
-    df_long['country_id'] = country_encoder.fit_transform(df_long['country_name'])
-
-    if country not in country_encoder.classes_:
-        raise ValueError(f"Country '{country}' not found in data.")
-
-    country_id = country_encoder.transform([country])[0]
-    country_df = df_long[df_long['country_name'] == country].sort_values('year')
-
-    scaler = MinMaxScaler()
-    scaler.fit(country_df[['value']])
-
-    recent_values = country_df['value'].values[-seq_len:]
-    if len(recent_values) < seq_len:
-        raise ValueError(f"Not enough data for {country} (need {seq_len}, got {len(recent_values)}).")
-    input_seq = scaler.transform(recent_values.reshape(-1, 1)).flatten().tolist()
-
+        raise FileNotFoundError(f"Data file not found at: {data_path}")
     if not os.path.exists(model_path):
-        raise FileNotFoundError(f"Model file '{model_path}' not found.")
+        raise FileNotFoundError(f"Model file not found at: {model_path}")
 
-    model = torch.load(model_path)
-    model.eval()
+    try:
+        # Load and clean data
+        df = pd.read_csv(data_path)
+        
+        # Fix: Proper column cleaning and validation
+        df = df.drop(columns=[col for col in df.columns if 'Unnamed' in str(col)], errors='ignore')
+        df.columns = df.columns.str.strip()
+        
+        # Validate required columns
+        required_columns = ['country_name'] + [str(y) for y in range(2000, 2023)]  # Adjust years as needed
+        missing_cols = [col for col in required_columns if col not in df.columns]
+        if missing_cols:
+            raise ValueError(f"Data file missing required columns: {missing_cols}")
+    
+        # Melt and clean data
+        df_long = df.melt(id_vars='country_name', var_name='year', value_name='value').dropna()
+        
+        # Convert year to integer safely
+        df_long['year'] = pd.to_numeric(df_long['year'], errors='coerce')
+        df_long = df_long.dropna(subset=['year'])
+        df_long['year'] = df_long['year'].astype('int64')
+        df_long = df_long.sort_values(by=['country_name', 'year']).reset_index(drop=True)
 
-    future_preds = {}
-    current_year = int(country_df['year'].max())
+        # Country encoding with validation
+        country_encoder = LabelEncoder()
+        df_long['country_id'] = country_encoder.fit_transform(df_long['country_name'])
+        
+        if country not in country_encoder.classes_:
+            available = list(country_encoder.classes_)
+            raise ValueError(f"Country '{country}' not in dataset. Available: {available}")
 
-    for _ in range(years_to_predict):
-        seq_tensor = torch.tensor(input_seq, dtype=torch.float).unsqueeze(0).unsqueeze(-1)
-        country_tensor = torch.tensor([country_id], dtype=torch.long)
+        # Prepare input sequence
+        country_df = df_long[df_long['country_name'] == country].sort_values('year')
+        if len(country_df) == 0:
+            raise ValueError(f"No data available for country: {country}")
+        
+        # Normalize values
+        scaler = MinMaxScaler()
+        try:
+            scaler.fit(country_df[['value']])
+        except ValueError as e:
+            raise ValueError(f"Invalid value data: {str(e)}")
+        
+        recent_values = country_df['value'].values[-seq_len:]
+        if len(recent_values) < seq_len:
+            raise ValueError(f"Insufficient data for {country}. Need {seq_len} values, got {len(recent_values)}")
 
+        input_seq = scaler.transform(recent_values.reshape(-1, 1)).flatten().tolist()
+        country_id = country_encoder.transform([country])[0]
+
+        # Load model with enhanced error handling
+        try:
+            model = load_model(model_path, num_countries=len(country_encoder.classes_))
+            model.eval()
+        except Exception as e:
+            raise RuntimeError(f"Model loading failed: {str(e)}")
+
+        # Generate predictions
+        future_preds = {}
+        current_year = int(country_df['year'].max())
+        
         with torch.no_grad():
-            pred_scaled = model(country_tensor, seq_tensor).item()
-            pred = scaler.inverse_transform([[pred_scaled]])[0][0]
+            for _ in range(years_to_predict):
+                try:
+                    seq_tensor = torch.tensor(input_seq, dtype=torch.float32).unsqueeze(0).unsqueeze(-1)
+                    country_tensor = torch.tensor([country_id], dtype=torch.long)
+                    
+                    pred_scaled = model(country_tensor, seq_tensor).item()
+                    pred = scaler.inverse_transform([[pred_scaled]])[0][0]
+                    
+                    current_year += 1
+                    future_preds[current_year] = round(pred, 2)
+                    input_seq = input_seq[1:] + [pred_scaled]
+                except Exception as e:
+                    raise RuntimeError(f"Prediction failed for year {current_year + 1}: {str(e)}")
 
-        current_year += 1
-        future_preds[current_year] = round(pred, 2)
-        input_seq = input_seq[1:] + [pred_scaled]
+        return future_preds
 
-    return future_preds
-
-#decide_risk(country,UBal,UOut,UInc,year,ml_result)
-def get_value_by_year(data: dict, year = 2025) -> float:
-    return data.get(year, None)    
-
-usercountry = "India"
-listcountry = prompts.decide_country(usercountry)
-print(type(listcountry))
-emi_info = "50 lakhs, 4.2percent interest over the course of 35 months"
-monthly_expenses = "30000 rent, 12000 on grocereries, 8.5k utility bills, 40k tuition fees"
-monthly_income = "2,00,000"
+    except pd.errors.EmptyDataError:
+        raise ValueError("Data file is empty or corrupt")
+    except Exception as e:
+        raise RuntimeError(f"Forecast generation failed: {str(e)}")
 
 
-model_output = get_country_forecast(listcountry,10)
-yearvalue = get_value_by_year(model_output)
-
-risk_decision = prompts.decide_risk(listcountry,emi_info,monthly_expenses,monthly_income,2025,yearvalue,model_output)
-print(risk_decision)
-
+def get_value_by_year(data: Dict[int, float], year: int = 2025) -> float:
+    """
+    Safely gets the forecast value for a specific year.
+    
+    Args:
+        data: Dictionary of year-value pairs
+        year: The year to look up
+    
+    Returns:
+        The forecast value or 0.0 if not found
+    """
+    try:
+        return float(data.get(year, 0.0))
+    except (TypeError, ValueError):
+        return 0.0
