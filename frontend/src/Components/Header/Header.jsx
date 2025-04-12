@@ -86,8 +86,6 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="nav-desktop">
             <Link to="/" className="nav-link">Home</Link>
-            <Link to="/features" className="nav-link">Features</Link>
-            <Link to="/how-it-works" className="nav-link">How It Works</Link>
             <Link to="/chat" className="nav-link">Chat</Link>
 
             {user ? (
@@ -115,8 +113,6 @@ const Header = () => {
         <div className="mobile-nav">
           <nav className="mobile-nav-inner">
             <Link to="/" className="nav-link" onClick={() => setIsMenuOpen(false)}>Home</Link>
-            <Link to="/features" className="nav-link" onClick={() => setIsMenuOpen(false)}>Features</Link>
-            <Link to="/how-it-works" className="nav-link" onClick={() => setIsMenuOpen(false)}>How It Works</Link>
             <Link to="/chat" className="nav-link" onClick={() => setIsMenuOpen(false)}>Chat</Link>
 
             {user ? (
