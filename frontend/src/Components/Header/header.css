@@ -22,7 +22,6 @@
 /* ===== Header Container ===== */
 .header-container {
   max-width: 90%;
-  border: 2rem;
   margin-left: 2rem;
   margin-right: 2rem;
   padding: 1rem 1.5rem;
@@ -33,6 +32,8 @@
 
 /* ===== Welcome Text ===== */
 .welcome-text {
+  margin-right: 2rem;
+  margin-left: 2rem;
   font-size: 1.3rem;
   font-weight: bold;
   color: #1f2937;
@@ -43,6 +44,7 @@
 /* ===== Logout Button ===== */
 .logout-button {
   padding: 8px 16px;
+  margin-left: 2rem;
   background-color: #ef4444;
   /* Red-500 */
   color: white;
@@ -59,11 +61,10 @@
   transform: scale(1.05);
 }
 
-
 /* ===== Logo ===== */
 .logo-text {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 1.75rem;
+  font-weight: 800;
   text-decoration: none;
   color: #0284c7;
   /* Blue */
@@ -76,15 +77,13 @@
 
 /* ===== Desktop Navigation ===== */
 .nav-desktop {
-  display: none;
+  display: flex;
+  align-items: center;
 }
 
-@media (min-width: 768px) {
-  .nav-desktop {
-    display: flex;
-    gap: 2.5rem;
-    align-items: center;
-  }
+.nav-desktop a {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 /* Nav Links */
@@ -140,45 +139,66 @@
   background-color: #e56b00;
 }
 
-/* ===== Mobile Navigation ===== */
+/* ===== Mobile & Tablet Navigation (Max Width: 768px) ===== */
 .menu-button {
   background: none;
   border: none;
   cursor: pointer;
+  display: none;
+  /* Ensure it's hidden by default */
 }
 
-@media (min-width: 768px) {
-  .menu-button {
+@media (max-width: 768px) {
+
+  /* Tablet and smaller (Mobile) */
+  .nav-desktop {
     display: none;
+  }
+
+  .menu-button {
+    display: block;
+  }
+
+  .mobile-nav {
+    position: absolute;
+    top: 4rem;
+    left: 0;
+    right: 0;
+    background-color: white;
+    z-index: 40;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .mobile-nav-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .mobile-nav .login-button,
+  .mobile-nav .signup-button {
+    display: block;
+    width: 85%;
+    text-align: center;
+    margin-top: 10px;
   }
 }
 
-.mobile-nav {
-  position: absolute;
-  top: 4rem;
-  left: 0;
-  right: 0;
-  background-color: white;
-  z-index: 40;
-  padding: 1rem 1.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
+/* ===== Desktop Navigation (min-width 769px) ===== */
+@media (min-width: 769px) {
 
-.mobile-nav-inner {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
+  /* Desktop Layout */
+  .nav-desktop {
+    display: flex;
+    align-items: center;
+  }
 
-.mobile-nav .login-button,
-.mobile-nav .signup-button {
-  display: block;
-  width: 85%;
-  text-align: center;
-  margin-top: 10px;
-}
+  .menu-button {
+    display: none;
+    /* Hide menu button on desktop */
+  }
 
-@media (min-width: 768px) {
   .mobile-nav {
     display: none !important;
   }
