@@ -1,0 +1,117 @@
+/* DebtAssessmentCard.css - Enhanced Design */
+.debt-assessment-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-top: 4px solid #ef4444;
+}
+
+.debt-assessment-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.card-header .icon {
+  font-size: 26px;
+  margin-right: 12px;
+  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
+  padding: 8px;
+  border-radius: 50%;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-header h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+  color: #2d3748;
+}
+
+.metric-item {
+  margin-bottom: 24px;
+  padding: 16px;
+  border-radius: 10px;
+  background-color: #f8fafc;
+  transition: background-color 0.2s ease;
+}
+
+.metric-item:hover {
+  background-color: #f1f5f9;
+}
+
+.metric-item:last-child {
+  margin-bottom: 0;
+}
+
+.metric-item .label {
+  color: #64748b;
+  margin-bottom: 8px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+.metric-item .value {
+  font-weight: 700;
+  font-size: 18px;
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: #334155;
+}
+
+.metric-item .value.large {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+.metric-item .status {
+  font-size: 24px;
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.status-healthy {
+  color: #10b981;
+  background-color: rgba(16, 185, 129, 0.1);
+}
+
+.status-concerning {
+  color: #f59e0b;
+  background-color: rgba(245, 158, 11, 0.1);
+}
+
+.status-critical {
+  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.metric-item .description {
+  font-size: 14px;
+  color: #64748b;
+  margin-top: 12px;
+  line-height: 1.5;
+  padding: 10px;
+  border-left: 3px solid #cbd5e1;
+  background-color: #f8fafc;
+}

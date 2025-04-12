@@ -1,0 +1,89 @@
+/* UserInfoCard.css - Enhanced Design */
+.user-info-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-top: 4px solid #4361ee;
+}
+
+.user-info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.icon {
+  font-size: 26px;
+  margin-right: 12px;
+  color: #4361ee;
+  background-color: rgba(67, 97, 238, 0.1);
+  padding: 8px;
+  border-radius: 50%;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-header h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+  color: #2d3748;
+}
+
+.user-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.info-item {
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #f8fafc;
+  transition: background-color 0.2s ease;
+}
+
+.info-item:hover {
+  background-color: #f1f5f9;
+}
+
+.info-item .label {
+  color: #64748b;
+  margin-bottom: 6px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+.info-item .value {
+  font-weight: 700;
+  font-size: 18px;
+  margin-top: 0;
+  color: #334155;
+}
+
+.info-item:nth-child(2) .value {
+  color: #4361ee;
+}
+
+.info-item:nth-child(3) .value {
+  color: #2563eb;
+}
+
+.info-item:nth-child(4) .value {
+  color: #3b82f6;
+}

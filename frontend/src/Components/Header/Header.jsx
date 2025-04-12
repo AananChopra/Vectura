@@ -87,6 +87,8 @@ const Header = () => {
           <nav className="nav-desktop">
             <Link to="/" className="nav-link">Home</Link>
             <Link to="/chat" className="nav-link">Chat</Link>
+            <Link to="/SmartAnalytics" className="nav-link">SmartAnalytics</Link>
+            
 
             {user ? (
               <>
@@ -114,6 +116,7 @@ const Header = () => {
           <nav className="mobile-nav-inner">
             <Link to="/" className="nav-link" onClick={() => setIsMenuOpen(false)}>Home</Link>
             <Link to="/chat" className="nav-link" onClick={() => setIsMenuOpen(false)}>Chat</Link>
+            <Link to="/SmartAnalytics" className="nav-link" onClick={() => setIsMenuOpen(false)}>SmartAnalytics</Link>
 
             {user ? (
               <>

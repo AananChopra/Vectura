@@ -3,6 +3,7 @@ import Home from "../Components/Pages/Home";
 import SignupPage from "../Components/Pages/SignupPage";
 import LoginPage from "../Components/Pages/LoginPage";
 import AiPage from "../Components/Pages/AiPage";
+import FinancialDashboard from "../Components/Pages/SmartAnalyticsPage";
 
 
 function CustomRoutes() {
@@ -13,6 +14,7 @@ function CustomRoutes() {
             <Route path="/SignUp" element={<SignupPage/>} />
             <Route path="/login" element={<LoginPage/>} />
             <Route path="/chat" element={<AiPage/>} />
+            <Route path="/SmartAnalytics" element={<FinancialDashboard/>} />
         </Routes>
     );
 };

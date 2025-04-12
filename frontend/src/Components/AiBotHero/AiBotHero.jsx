@@ -27,7 +27,7 @@ const HeroSection = () => {
           
           <div className="hero-buttons justify-content-center">
             <Link to="/chat" className="btn Aibtn-primary">Chat with Vectura</Link>
-            <Link to="/home" className="btn Aibtn-outline">Home</Link>
+            <Link to="/SmartAnalytics" className="btn Aibtn-outline">SmartAnalytics</Link>
           </div>
         </div>
       </div>
