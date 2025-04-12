@@ -1,0 +1,413 @@
+/* Hero Section */
+.hero-section {
+  padding: 5rem 0;
+  background: linear-gradient(135deg, #0ea5e9, #a855f7, #ec4899, #f97316);
+  margin: 3rem 2rem 2rem;
+  border-radius: 2rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='rgba(255,255,255,0.05)' fill-rule='evenodd'/%3E%3C/svg%3E");
+  opacity: 0.5;
+  z-index: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.text-container {
+  flex: 1;
+  color: white;
+  padding-right: 3rem;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: white;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  letter-spacing: -0.02em;
+}
+
+.hero-description {
+  font-size: 1.375rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  max-width: 550px;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.cta-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.cta-btn-1 {
+  background-color: white;
+  color: #0ea5e9;
+  font-weight: 700;
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-btn-1::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.7s ease;
+}
+
+.cta-btn-1:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+  background-color: white;
+  color: #a855f7;
+}
+
+.cta-btn-1:hover::before {
+  left: 100%;
+}
+
+.cta-btn-2 {
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  color: white;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  border-radius: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  backdrop-filter: blur(5px);
+}
+
+.cta-btn-2:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: white;
+  transform: translateY(-3px);
+}
+
+/* Debt Summary Card */
+.summary-container {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.debt-summary-card {
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 1.5rem;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 420px;
+  transform: perspective(1000px) rotateY(-5deg);
+  transition: transform 0.5s ease;
+}
+
+.debt-summary-card:hover {
+  transform: perspective(1000px) rotateY(0deg);
+}
+
+.debt-summary-header {
+  background: linear-gradient(90deg, #0ea5e9, #0288D1);
+  color: white;
+  padding: 1.5rem;
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.debt-summary-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(to right, #ec4899, #f97316);
+}
+
+.debt-summary-title {
+  font-weight: 700;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.debt-summary-title::before {
+  content: '💰';
+  margin-right: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.debt-summary-body {
+  padding: 1.75rem;
+}
+
+.debt-item {
+  display: flex;
+  align-items: center;
+  background-color: #f8fafc;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  border: 1px solid #e2e8f0;
+}
+
+.debt-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05);
+  border-color: #cbd5e1;
+}
+
+.debt-item:last-child {
+  margin-bottom: 1.5rem;
+}
+
+.debt-icon {
+  font-size: 1.75rem;
+  margin-right: 1rem;
+  padding: 0.75rem;
+  background: linear-gradient(45deg, #0ea5e9, #0288D1);
+  color: white;
+  border-radius: 12px;
+  stroke-width: 2px;
+}
+
+.debt-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.debt-label {
+  font-weight: 600;
+  color: #64748b;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.debt-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0;
+}
+
+.get-plan-btn {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(90deg, #0ea5e9, #0288D1);
+  color: white;
+  font-weight: 700;
+  border-radius: 1rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 15px rgba(2, 136, 209, 0.2);
+}
+
+.get-plan-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.7s ease;
+}
+
+.get-plan-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 20px rgba(2, 136, 209, 0.3);
+  background: linear-gradient(90deg, #0288D1, #0ea5e9);
+}
+
+.get-plan-btn:hover::before {
+  left: 100%;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+  
+  .text-container {
+    padding-right: 2rem;
+  }
+  
+  .debt-summary-card {
+    max-width: 380px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+  }
+  
+  .hero-section {
+    margin: 2rem 1.5rem 1.5rem;
+    padding: 4rem 0;
+  }
+  
+  .text-container {
+    padding-right: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .hero-title {
+    font-size: 2.75rem;
+  }
+  
+  .hero-description {
+    font-size: 1.25rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .summary-container {
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .debt-summary-card {
+    max-width: 450px;
+    transform: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    margin: 1.5rem 1rem 1rem;
+    padding: 3rem 0;
+    border-radius: 1.5rem;
+  }
+  
+  .container {
+    padding: 0 1.5rem;
+  }
+  
+  .hero-title {
+    font-size: 2.25rem;
+  }
+  
+  .hero-description {
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+  }
+  
+  .cta-btn-1, .cta-btn-2 {
+    width: 100%;
+  }
+  
+  .debt-summary-card {
+    max-width: 100%;
+  }
+  
+  .debt-summary-header {
+    padding: 1.25rem;
+  }
+  
+  .debt-summary-title {
+    font-size: 1.25rem;
+  }
+  
+  .debt-summary-body {
+    padding: 1.25rem;
+  }
+  
+  .debt-item {
+    padding: 1rem;
+  }
+  
+  .debt-value {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    margin: 1rem 0.75rem 0.75rem;
+    padding: 2.5rem 0;
+    border-radius: 1.25rem;
+  }
+  
+  .hero-title {
+    font-size: 1.875rem;
+  }
+  
+  .hero-description {
+    font-size: 1rem;
+  }
+  
+  .debt-icon {
+    padding: 0.5rem;
+    font-size: 1.25rem;
+  }
+  
+  .debt-label {
+    font-size: 0.8rem;
+  }
+  
+  .debt-value {
+    font-size: 1.125rem;
+  }
+}

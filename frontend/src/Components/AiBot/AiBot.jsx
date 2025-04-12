@@ -121,7 +121,7 @@ const AiBot = () => {
     <div className="ai-chat-container">
       <div className="chat-header">
         <Bot size={24} />
-        <span>Ventura Debt Assistant</span>
+        <span>Vectura Debt Assistant</span>
       </div>
       <div className="chat-messages">
         {messages.map((message, index) => (
@@ -129,6 +129,7 @@ const AiBot = () => {
             key={index}
             className={`message ${message.sender === "bot" ? "bot" : "user"}`}
           >
+            <Bot size={24} className="message-bot-logo" />
             {message.text}
           </div>
         ))}
