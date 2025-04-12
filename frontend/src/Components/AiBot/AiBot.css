@@ -12,7 +12,7 @@
   
   /* Container and Header */
   .ai-chat-container {
-    max-width: 600px;
+    max-width: 80%;
     margin: 0 auto;
     margin-top: 2rem;
     background-color: white;
@@ -25,10 +25,11 @@
   }
   
   .chat-header {
-    background-color: #0078d4;
+    background-color: #218ddf;
     color: white;
     padding: 15px;
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: 10px;
     font-weight: bold;
@@ -54,20 +55,30 @@
     max-width: 70%;
     padding: 12px 18px;
     border-radius: 20px;
-    font-size: 14px;
+    font-size: 1rem;
     word-wrap: break-word;
   }
   
   .message.bot {
+    display: flex;
     align-self: flex-start;
-    background-color: #e6e6e6;
-    color: #333;
+    justify-content: center;
+    background-color: rgb(239, 234, 234);
+    color: black;
+  }
+
+  .message-bot-logo{
+    color: black;
+    margin-right: 1rem;
   }
   
   .message.user {
+    display: flex;
     align-self: flex-end;
-    background-color: #0078d4;
-    color: white;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(239, 234, 234);
+    color: black;
   }
   
   /* Footer */
@@ -90,21 +101,25 @@
   }
   
   .chat-input:focus {
-    border-color: #0078d4;
+    border-color: #218ddf;
   }
   
   .send-btn {
-    background-color: #0078d4;
+    background-color: #218ddf;
     padding: 10px;
+    width: 5rem;
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: none;
-    border-radius: 50%;
     cursor: pointer;
   }
   
   .send-btn svg {
     color: white;
-    width: 18px;
-    height: 18px;
+    width: 30%;
+    height: 30%;
   }
   
   .submit-btn {

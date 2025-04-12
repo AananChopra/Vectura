@@ -75,6 +75,7 @@ const AiBot = () => {
             key={index}
             className={`message ${message.sender === "bot" ? "bot" : "user"}`}
           >
+            <Bot size={24} className="message-bot-logo" />
             {message.text}
           </div>
         ))}
