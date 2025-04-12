@@ -60,8 +60,8 @@ class LoginView(APIView):
             return Response({"error": "Email and password are required"}, status=400)
 
         try:
-            user = User.objects.get(email=email)
-        except User.DoesNotExist:
+            user = CustomUser.objects.get(email=email)
+        except CustomUser.DoesNotExist:
             return Response({"error": "Invalid email or password"}, status=400)
 
         if not check_password(password, user.password):
