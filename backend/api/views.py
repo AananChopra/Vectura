@@ -411,18 +411,19 @@ def generate_pdf(request, report_id):
             tuition = float(report.responses.get("11", 0))
             misc = float(report.responses.get("12", 0))
 
-            # List of all individual expense categories
+            # Total expenses
+            monthly_expenses = rent + utilities + food + tuition + misc
+            savings = max(0, monthly_income - monthly_expenses)
+
+            # List of all individual expense categories including Savings
             data = [
                 ("Rent/Mortgage", rent),
                 ("Utilities", utilities),
                 ("Food/Groceries", food),
                 ("Tuition", tuition),
                 ("Miscellaneous", misc),
+                ("Savings", savings)
             ]
-
-            # Total expenses
-            monthly_expenses = sum([d[1] for d in data])
-            remaining = monthly_income - monthly_expenses
 
             # Drawing the pie chart
             drawing = Drawing(width=400, height=200)
@@ -437,8 +438,15 @@ def generate_pdf(request, report_id):
 
             pie.slices.strokeWidth = 0.5
 
-            # Assign colors (you can customize or cycle through a palette)
-            slice_colors = [accent_color, secondary_color, high_risk_color, very_high_risk_color, colors.purple]
+            # Assign colors
+            slice_colors = [
+                accent_color,
+                secondary_color,
+                high_risk_color,
+                very_high_risk_color,
+                colors.purple,
+                colors.green  # Savings in green
+            ]
             for i, color in enumerate(slice_colors):
                 if i < len(pie.data):
                     pie.slices[i].fillColor = color
@@ -458,17 +466,18 @@ def generate_pdf(request, report_id):
             elements.append(drawing)
 
             # Summary description below the chart
-            if remaining >= 0:
+            if savings > 0:
                 chart_desc = f"""
                 Monthly Income: ${monthly_income:.2f}<br/>
                 Total Monthly Expenses: ${monthly_expenses:.2f}<br/>
-                Monthly Savings: ${remaining:.2f} ({(remaining/monthly_income*100):.1f}% of income)
+                Monthly Savings: ${savings:.2f} ({(savings / monthly_income * 100):.1f}% of income)
                 """
             else:
+                deficit = abs(monthly_income - monthly_expenses)
                 chart_desc = f"""
                 Monthly Income: ${monthly_income:.2f}<br/>
                 Total Monthly Expenses: ${monthly_expenses:.2f}<br/>
-                Monthly Deficit: ${abs(remaining):.2f} ({(abs(remaining)/monthly_income*100):.1f}% over income)
+                Monthly Deficit: ${deficit:.2f} ({(deficit / monthly_income * 100):.1f}% over income)
                 """
 
             elements.append(Paragraph(chart_desc, ParagraphStyle(
