@@ -31,6 +31,32 @@
   align-items: center;
 }
 
+/* ===== Welcome Text ===== */
+.welcome-text {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #1f2937; /* Gray-800 */
+  margin-right: 1rem;
+}
+
+/* ===== Logout Button ===== */
+.logout-button {
+  padding: 8px 16px;
+  background-color: #ef4444; /* Red-500 */
+  color: white;
+  border: 2px solid #ef4444;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.logout-button:hover {
+  background-color: #dc2626; /* Red-600 */
+  transform: scale(1.05);
+}
+
+
 /* ===== Logo ===== */
 .logo-text {
   font-size: 1.5rem;
