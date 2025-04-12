@@ -11,19 +11,18 @@ const AiBot = () => {
 
   const questions = [
     "👋 Hi there! I'm Ventura, your personal debt assistant. Let's work together to understand your current financial situation and guide you toward smarter debt management. This will only take a few minutes!",
-    "📌 Section 1: Personal Information\n\n⿡ What is your full name or what should I call you?",
+    "What is your full name or what should I call you?",
     "⿢ How old are you?",
     "⿣ Which country do you currently live in?",
     "⿤ What currency are your loans and income based in? (e.g., USD, INR, EUR)",
-    "💼 Section 2: Employment & Income\n\n⿥ What best describes your employment status? (Salaried, Self-employed, Freelancer, Student, Unemployed)",
+    "What best describes your employment status? (Salaried, Self-employed, Freelancer, Student, Unemployed)",
     "⿦ Which industry do you work in? (Optional but helpful)",
     "⿧ What is your monthly income? (Exact amount if fixed, or range like ₹50,000–₹90,000)",
-    "🧾 Section 3: Expenses & Assets\n\n⿨ What is your average total monthly expense? (Include rent, groceries, utilities, medical bills, etc.)",
+    "What is your total monthly expense? (Include rent, groceries, utilities, medical bills, etc.)",
     "⿩ Do you own any significant assets or savings? If yes, please estimate their total value.",
-    "💳 Section 4: Debt Details\n\n🔟 How many loans do you currently have? (List each like: One loan of ₹X, EMI over Y months at Z% interest per annum)",
+    "How many loans do you currently have? (List each like: One loan of ₹X, EMI over Y months at Z% interest per annum)",
     "⿡⿡ Do you miss payments often? If yes, estimate the frequency annually (e.g., 0.10 = 10%)",
-    "📉 Section 5: Risk & Emotional Insight\n\n⿡⿢ On a scale from 1 to 5, how do you feel about your current debt situation? (1 = Very anxious, 5 = Very confident)",
-    "🧠 Thank you! I’ll now analyze your inputs and calculate your personalized debt risk score. Hang tight!"
+    "On a scale from 1 to 5, how do you feel about your current debt situation? (1 = Very anxious, 5 = Very confident)",
 
   ];
 
