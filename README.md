@@ -35,7 +35,7 @@ Designed to empower individuals in understanding and managing their debt more ef
 | Frontend   | React, Tailwind CSS                    |
 | Backend    | Django, Django REST Framework          |
 | PDF Export | ReportLab                              |
-| AI Logic   | Conversational simulation via React    |
+| AI Logic   | Pytorch, Pandas, NumPy, Scikit Learn   |
 | Charts     | ReportLab’s `graphics.charts.pie`      |
 
 ---
